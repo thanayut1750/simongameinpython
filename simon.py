@@ -1,5 +1,6 @@
 import tkinter as tk
 import time
+import random 
 from PIL import Image, ImageTk
 
 root = tk.Tk()
@@ -52,8 +53,6 @@ limg1.bind('<Button-1>', key)
 limg2.bind('<Button-1>', key)
 limg3.bind('<Button-1>', key)
 limg4.bind('<Button-1>', key)
-
-
 
 
 
