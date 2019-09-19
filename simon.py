@@ -46,10 +46,17 @@ limg3.place(x=130,y=400)
 limg4 = tk.Label(root,image=photo4)
 limg4.place(x=610,y=400)
 
+allimg = [limg1,limg2,limg3,limg4]
+photo = [photo1,photo2,photo3,photo4]
+
 def next_startgame():
     a = random.randrange(0,4)
-    print(a)
+    nextran = allimg[a]
+    nextran["image"] = photo5
 
+    def animation6():
+        nextran["image"] = photo[a]
+    nextran.after(500,func=animation6)
 
 #Key press to start fn
 def keyimg1(event):
@@ -63,6 +70,7 @@ def animation1():
 def keyimg2(event):
     limg2["image"] = photo5
     limg2.after(500,func=animation2)
+    next_startgame()
 def animation2():
     limg2["image"] = photo2
 
@@ -70,6 +78,7 @@ def animation2():
 def keyimg3(event):
     limg3["image"] = photo5
     limg3.after(500,func=animation3)
+    next_startgame()
 def animation3():
     limg3["image"] = photo3
 
@@ -77,6 +86,7 @@ def animation3():
 def keyimg4(event):
     limg4["image"] = photo5
     limg4.after(500,func=animation4)
+    next_startgame()
 def animation4():
     limg4["image"] = photo4
 
@@ -89,7 +99,7 @@ limg2.bind('<Button-1>', keyimg2)
 limg3.bind('<Button-1>', keyimg3)
 limg4.bind('<Button-1>', keyimg4)
 
-allimg = [limg1,limg2,limg3,limg4]
+
 
 
 root.mainloop()
