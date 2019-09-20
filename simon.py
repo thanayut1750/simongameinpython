@@ -1,7 +1,7 @@
 import tkinter as tk
 import time
 import random 
-import mp3play
+from playsound import playsound
 from PIL import Image, ImageTk
 
 root = tk.Tk()
@@ -10,17 +10,28 @@ root.geometry("1080x750")
 
 
 #header label
-level = 2
-headlb = 'Level '+str(level)
-levellb = tk.Label(root,text=headlb,font="arial 30", width = len(headlb),bg="yellow")
+level = 1
+headlb = 'L  e  v  e  l    '+str(level)
+levellb = tk.Label(root,text=headlb,font="arial 30 bold", width = len(headlb),bg="yellow")
 levellb.pack(fill='x')
 #End-header label
 #load sound----------------------------------------------------------------------
-f = mp3play.load('sound/img0.mp3')
 
 def sound_img0():
-    f.play()
+    playsound("sound\img0.mp3")
 
+def sound_img1():
+    playsound("sound\img1.mp3")
+
+def sound_img2():
+    playsound("sound\img2.mp3")
+
+def sound_img3():
+    playsound("sound\img3.mp3")
+
+def sound_wrong():
+    playsound("sound\wrong.mp3")
+   
 #load image----------------------------------------------------------------------
 img0 = Image.open("images/thuglife.png")
 photo0 = ImageTk.PhotoImage(img0)
@@ -63,7 +74,7 @@ selection = []
 pattern = []
 
 #-----------------------------------------------------------------------
-def gamestart_animate(idx =0):  
+def gamestart_animate(idx =0):
     a = random.randrange(len(allimg))
     pattern.append("img"+str(a))
     allimg[a].config(image=photo5)
@@ -87,6 +98,7 @@ def select_img1(self):
     checkAns()
 
 def select_img2(self):
+    sound_img1()
     limg2.config(image=photo5)
     root.after(500,lambda:limg2.config(image=photo2))
     selection.append('img1')
@@ -95,6 +107,7 @@ def select_img2(self):
     checkAns()
 
 def select_img3(self):
+    sound_img2()
     limg3.config(image=photo5)
     root.after(500,lambda:limg3.config(image=photo3))
     selection.append('img2')
@@ -103,6 +116,7 @@ def select_img3(self):
     checkAns()
 
 def select_img4(self):
+    sound_img3()
     limg4.config(image=photo0)
     root.after(500,lambda:limg4.config(image=photo4))
     selection.append('img3')
@@ -110,9 +124,6 @@ def select_img4(self):
         root.after(1500,next_pp)
     checkAns()
 #-----------------------------------------------------------------------
-def showscore():
-    print("userclick:"+str(selection))
-    print("pattern:"+str(pattern))
 #-----------------------------------------------------------------------
 def next_pp():
     if pattern == selection:
@@ -125,37 +136,32 @@ def next_pp():
         pass
     selection.clear()
 #-----------------------------------------------------------------------
+
 def checkAns():
     global pattern,selection
     for i,y in zip(pattern,selection):
         if i == y:
-            print("GO ON")
+            pass
         else:
+            pattern.clear()
             global level
             global headlb
-            level = 2
-            headlb = 'Level '+str(level)
+            sound_wrong()
+            pattern.clear()
+            selection.clear()
+            level = 1
+            headlb = 'L  e  v  e  l    '+str(level)
             levellb.configure(text=headlb)
-                
-        
 
 def levelup():
     global level
     global headlb
     level += 1
-    headlb = 'Level '+str(level)
+    headlb = 'L  e  v  e  l    '+str(level)
     levellb.configure(text=headlb)
 
 
-
-
-
-root.after(2000,gamestart_animate)
-
-btn = tk.Button(root,text="SHOW SCORE",command=showscore).pack(side='bottom')
-
-
-
+btn = tk.Button(root,text="START",font="arial 40",command=gamestart_animate).pack(side='bottom')
 
 
 #root.bind("<Key>",key)
