@@ -1,6 +1,7 @@
 import tkinter as tk
 import time
 import random 
+from tkinter import messagebox
 from playsound import playsound
 from PIL import Image, ImageTk
 
@@ -14,6 +15,9 @@ level = 1
 headlb = 'L  e  v  e  l    '+str(level)
 levellb = tk.Label(root,text=headlb,font="arial 30 bold", width = len(headlb),bg="yellow")
 levellb.pack(fill='x')
+
+highest_score = tk.Label(root,text="Highest Score LEVEL",font="arial 15 bold",bg="yellow")
+highest_score.place(x=0,y=0)
 #End-header label
 #load sound----------------------------------------------------------------------
 
@@ -149,6 +153,12 @@ def checkAns():
             sound_wrong()
             pattern.clear()
             selection.clear()
+            limg1.unbind("<1>")
+            limg2.unbind("<1>")
+            limg3.unbind("<1>")
+            limg4.unbind("<1>")
+            ermessage = ["ปั๊ดโถ่ จำดิจำ","รัฐประหาร อะจำดิ","STUPID","เรือดำนํ้า"]
+            messagebox.showinfo("ข้อแนะนำ", random.choice(ermessage))
             level = 1
             headlb = 'L  e  v  e  l    '+str(level)
             levellb.configure(text=headlb)
