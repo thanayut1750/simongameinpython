@@ -1,6 +1,7 @@
 import tkinter as tk
 import time
 import random 
+import mp3play
 from PIL import Image, ImageTk
 
 root = tk.Tk()
@@ -9,10 +10,16 @@ root.geometry("1080x750")
 
 
 #header label
-headlb = 'Level'
-label1 = tk.Label(root,text=headlb,font="arial", width = len(headlb),bg="yellow")
-label1.pack()
+level = 2
+headlb = 'Level '+str(level)
+levellb = tk.Label(root,text=headlb,font="arial 30", width = len(headlb),bg="yellow")
+levellb.pack(fill='x')
 #End-header label
+#load sound----------------------------------------------------------------------
+f = mp3play.load('sound/img0.mp3')
+
+def sound_img0():
+    f.play()
 
 #load image----------------------------------------------------------------------
 img0 = Image.open("images/thuglife.png")
@@ -71,11 +78,13 @@ def gamestart_animate(idx =0):
         limg4.bind("<1>", select_img4)
 #-----------------------------------------------------------------------
 def select_img1(self):
+    sound_img0()
     limg1.config(image=photo5)
     root.after(500,lambda:limg1.config(image=photo1))
     selection.append('img0')
     if pattern == selection:
         root.after(1500,next_pp)
+    checkAns()
 
 def select_img2(self):
     limg2.config(image=photo5)
@@ -83,6 +92,7 @@ def select_img2(self):
     selection.append('img1')
     if pattern == selection:
         root.after(1500,next_pp)
+    checkAns()
 
 def select_img3(self):
     limg3.config(image=photo5)
@@ -90,6 +100,7 @@ def select_img3(self):
     selection.append('img2')
     if pattern == selection:
         root.after(1500,next_pp)
+    checkAns()
 
 def select_img4(self):
     limg4.config(image=photo0)
@@ -97,6 +108,7 @@ def select_img4(self):
     selection.append('img3')
     if pattern == selection:
         root.after(1500,next_pp)
+    checkAns()
 #-----------------------------------------------------------------------
 def showscore():
     print("userclick:"+str(selection))
@@ -108,13 +120,34 @@ def next_pp():
         allimg[a].config(image=photo5)
         root.after(500,lambda:allimg[a].config(image=photo[a]))
         pattern.append("img"+str(a))
+        levelup()
     else:
         pass
     selection.clear()
 #-----------------------------------------------------------------------
 def checkAns():
-    if pattern != selection:
-        print("try again")
+    global pattern,selection
+    for i,y in zip(pattern,selection):
+        if i == y:
+            print("GO ON")
+        else:
+            global level
+            global headlb
+            level = 2
+            headlb = 'Level '+str(level)
+            levellb.configure(text=headlb)
+                
+        
+
+def levelup():
+    global level
+    global headlb
+    level += 1
+    headlb = 'Level '+str(level)
+    levellb.configure(text=headlb)
+
+
+
 
 
 root.after(2000,gamestart_animate)
