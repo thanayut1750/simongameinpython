@@ -8,28 +8,16 @@ from PIL import Image, ImageTk
 root = tk.Tk()
 root.geometry("1080x750")
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 99bbdddc5013abc386b068b7d4720719895c36fd
 #header label
-
+#----------------------------------------------------------------------
 level = 1
 headlb = 'L  e  v  e  l    '+str(level)
 levellb = tk.Label(root,text=headlb,font="arial 30 bold", width = len(headlb),bg="yellow")
 levellb.pack(fill='x')
 
-<<<<<<< HEAD
-
-
 highest_score = tk.Label(root,text="Highest LEVEL : " ,font="arial 13",bg="yellow")
 highest_score.place(x=10,y=15)
-
-=======
-highest_score = tk.Label(root,text="Highest LEVEL : ",font="arial 13",bg="yellow")
-highest_score.place(x=10,y=15)
->>>>>>> 99bbdddc5013abc386b068b7d4720719895c36fd
-#End-header label
+#----------------------------------------------------------------------
 
 
 #load sound
@@ -53,6 +41,12 @@ def sound_wrong():
 
 #load image
 #----------------------------------------------------------------------
+bgimg = Image.open("images/1147281(2).jpg")
+photobg = ImageTk.PhotoImage(bgimg)
+
+bgpic = tk.Label(root,image=photobg)
+bgpic.place(x=10, y=50, relwidth=1, relheight=1)
+
 img0 = Image.open("images/thuglife.png")
 photo0 = ImageTk.PhotoImage(img0)
 
@@ -85,6 +79,8 @@ limg3.place(x=130,y=400)
 
 limg4 = tk.Label(root,image=photo4)
 limg4.place(x=610,y=400)
+
+
 #-----------------------------------------------------------------------
 
 #Variable
@@ -97,7 +93,6 @@ pattern = []
 #-----------------------------------------------------------------------
 
 #**************************ALL MAIN FUNCTION***************************
-
 def update_hscore():
     highest_sc = []
     with open("scorerec.csv",'rt') as read_score:
@@ -209,19 +204,9 @@ def levelup():
     update_hscore()
 #-----------------------------------------------------------------------
 #**************************ALL MAIN FUNCTION***************************
-
-<<<<<<< HEAD
+def h2p():
+    messagebox.showinfo( "HOW TO PLAY", "คลิก START button เพื่อเริ่มเล่นเกมเพื่อจะผ่านเลเวลต่อไป\nต้องกดตามภาพที่กระพริบขึ้นมาก่อนหน้าดูดีๆบ้างทีมีภาพซํ้า\nจะได้อะไรจากเกมนี้ \n1.สมาธิและความจำ\n2.จำหน้าประยุทธ์ได้")
+    
 btn = tk.Button(root,text="START",font="arial 40 bold",command=gamestart_animate).pack(side='bottom')
-=======
-
-btn = tk.Button(root,text="START",font="arial 40 bold",command=gamestart_animate).pack(side='bottom')
-
-
-#root.bind("<Key>",key)
-
-
-
-
-
->>>>>>> 99bbdddc5013abc386b068b7d4720719895c36fd
+btnh2p = tk.Button(root,text="HOW 2 PLAY",font="arial 15 bold",command=h2p,highlightcolor="black").place(x=935,y=4)
 root.mainloop()
