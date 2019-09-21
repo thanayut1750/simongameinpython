@@ -8,6 +8,10 @@ from PIL import Image, ImageTk
 root = tk.Tk()
 root.geometry("1080x750")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 99bbdddc5013abc386b068b7d4720719895c36fd
 #header label
 
 level = 1
@@ -15,11 +19,16 @@ headlb = 'L  e  v  e  l    '+str(level)
 levellb = tk.Label(root,text=headlb,font="arial 30 bold", width = len(headlb),bg="yellow")
 levellb.pack(fill='x')
 
+<<<<<<< HEAD
 
 
 highest_score = tk.Label(root,text="Highest LEVEL : " ,font="arial 13",bg="yellow")
 highest_score.place(x=10,y=15)
 
+=======
+highest_score = tk.Label(root,text="Highest LEVEL : ",font="arial 13",bg="yellow")
+highest_score.place(x=10,y=15)
+>>>>>>> 99bbdddc5013abc386b068b7d4720719895c36fd
 #End-header label
 
 
@@ -201,5 +210,18 @@ def levelup():
 #-----------------------------------------------------------------------
 #**************************ALL MAIN FUNCTION***************************
 
+<<<<<<< HEAD
 btn = tk.Button(root,text="START",font="arial 40 bold",command=gamestart_animate).pack(side='bottom')
+=======
+
+btn = tk.Button(root,text="START",font="arial 40 bold",command=gamestart_animate).pack(side='bottom')
+
+
+#root.bind("<Key>",key)
+
+
+
+
+
+>>>>>>> 99bbdddc5013abc386b068b7d4720719895c36fd
 root.mainloop()
