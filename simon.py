@@ -1,5 +1,5 @@
 import tkinter as tk
-import time
+import csv
 import random 
 from tkinter import messagebox
 from playsound import playsound
@@ -8,18 +8,23 @@ from PIL import Image, ImageTk
 root = tk.Tk()
 root.geometry("1080x750")
 
-
 #header label
+
 level = 1
 headlb = 'L  e  v  e  l    '+str(level)
 levellb = tk.Label(root,text=headlb,font="arial 30 bold", width = len(headlb),bg="yellow")
 levellb.pack(fill='x')
 
-highest_score = tk.Label(root,text="Highest LEVEL : ",font="arial 13",bg="yellow")
-highest_score.place(x=10,y=15)
-#End-header label
-#load sound----------------------------------------------------------------------
 
+
+highest_score = tk.Label(root,text="Highest LEVEL : " ,font="arial 13",bg="yellow")
+highest_score.place(x=10,y=15)
+
+#End-header label
+
+
+#load sound
+#----------------------------------------------------------------------
 def sound_img0():
     playsound("sound\img0.mp3")
 
@@ -34,8 +39,11 @@ def sound_img3():
 
 def sound_wrong():
     playsound("sound\wrong.mp3")
+#----------------------------------------------------------------------
    
-#load image----------------------------------------------------------------------
+
+#load image
+#----------------------------------------------------------------------
 img0 = Image.open("images/thuglife.png")
 photo0 = ImageTk.PhotoImage(img0)
 
@@ -53,9 +61,10 @@ photo4 = ImageTk.PhotoImage(img4)
 
 img5 = Image.open("images\img4ff.png")
 photo5 = ImageTk.PhotoImage(img5)
-
 #-----------------------------------------------------------------------
+
 #label with img
+#----------------------------------------------------------------------
 limg1 = tk.Label(root,image=photo1)
 limg1.place(x=130,y=50)
 
@@ -69,13 +78,29 @@ limg4 = tk.Label(root,image=photo4)
 limg4.place(x=610,y=400)
 #-----------------------------------------------------------------------
 
+#Variable
+#----------------------------------------------------------------------
 allimg = [limg1,limg2,limg3,limg4]
 photo = [photo1,photo2,photo3,photo4]
 
 selection = []
 pattern = []
-
 #-----------------------------------------------------------------------
+
+#**************************ALL MAIN FUNCTION***************************
+
+def update_hscore():
+    highest_sc = []
+    with open("scorerec.csv",'rt') as read_score:
+        read = csv.reader(read_score)
+        next(read)
+        next(read)
+        for i in read:
+            next(read)
+            highest_sc.append(i[0])
+        aa = max(highest_sc)
+        highest_score.configure(text="Highest LEVEL : "+aa)
+
 def gamestart_animate(idx =0):
     a = random.randrange(len(allimg))
     pattern.append("img"+str(a))
@@ -89,11 +114,11 @@ def gamestart_animate(idx =0):
         limg2.bind("<1>", select_img2)
         limg3.bind("<1>", select_img3)
         limg4.bind("<1>", select_img4)
-#-----------------------------------------------------------------------
+
 def select_img1(self):
     sound_img0()
     limg1.config(image=photo5)
-    root.after(500,lambda:limg1.config(image=photo1))
+    root.after(200,lambda:limg1.config(image=photo1))
     selection.append('img0')
     if pattern == selection:
         root.after(1500,next_pp)
@@ -102,7 +127,7 @@ def select_img1(self):
 def select_img2(self):
     sound_img1()
     limg2.config(image=photo5)
-    root.after(500,lambda:limg2.config(image=photo2))
+    root.after(200,lambda:limg2.config(image=photo2))
     selection.append('img1')
     if pattern == selection:
         root.after(1500,next_pp)
@@ -111,7 +136,7 @@ def select_img2(self):
 def select_img3(self):
     sound_img2()
     limg3.config(image=photo5)
-    root.after(500,lambda:limg3.config(image=photo3))
+    root.after(200,lambda:limg3.config(image=photo3))
     selection.append('img2')
     if pattern == selection:
         root.after(1500,next_pp)
@@ -120,13 +145,17 @@ def select_img3(self):
 def select_img4(self):
     sound_img3()
     limg4.config(image=photo0)
-    root.after(500,lambda:limg4.config(image=photo4))
+    root.after(200,lambda:limg4.config(image=photo4))
     selection.append('img3')
     if pattern == selection:
         root.after(1500,next_pp)
     checkAns()
-#-----------------------------------------------------------------------
-#-----------------------------------------------------------------------
+
+def csv_save_score():
+    with open('scorerec.csv' ,'a') as scr:
+        scr = csv.writer(scr)
+        scr.writerow([level,len(selection)])   
+
 def next_pp():
     if pattern == selection:
         a = random.randrange(len(allimg))
@@ -137,7 +166,6 @@ def next_pp():
     else:
         pass
     selection.clear()
-#-----------------------------------------------------------------------
 
 def checkAns():
     global pattern,selection
@@ -168,15 +196,10 @@ def levelup():
     level += 1
     headlb = 'L  e  v  e  l    '+str(level)
     levellb.configure(text=headlb)
-
+    csv_save_score()
+    update_hscore()
+#-----------------------------------------------------------------------
+#**************************ALL MAIN FUNCTION***************************
 
 btn = tk.Button(root,text="START",font="arial 40 bold",command=gamestart_animate).pack(side='bottom')
-
-
-#root.bind("<Key>",key)
-
-
-
-
-
 root.mainloop()
