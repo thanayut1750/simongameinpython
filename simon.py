@@ -9,15 +9,14 @@ root = tk.Tk()
 root.geometry("1080x750")
 
 
-
 #header label
 level = 1
 headlb = 'L  e  v  e  l    '+str(level)
 levellb = tk.Label(root,text=headlb,font="arial 30 bold", width = len(headlb),bg="yellow")
 levellb.pack(fill='x')
 
-highest_score = tk.Label(root,text="Highest Score LEVEL",font="arial 15 bold",bg="yellow")
-highest_score.place(x=0,y=0)
+highest_score = tk.Label(root,text="Highest LEVEL : ",font="arial 13",bg="yellow")
+highest_score.place(x=10,y=15)
 #End-header label
 #load sound----------------------------------------------------------------------
 
@@ -73,7 +72,6 @@ limg4.place(x=610,y=400)
 allimg = [limg1,limg2,limg3,limg4]
 photo = [photo1,photo2,photo3,photo4]
 
-status = False
 selection = []
 pattern = []
 
@@ -158,7 +156,8 @@ def checkAns():
             limg3.unbind("<1>")
             limg4.unbind("<1>")
             ermessage = ["ปั๊ดโถ่ จำดิจำ","รัฐประหาร อะจำดิ","STUPID","เรือดำนํ้า"]
-            messagebox.showinfo("ข้อแนะนำ", random.choice(ermessage))
+            b = random.randrange(4)
+            messagebox.showinfo("ข้อแนะนำ", ermessage[b])
             level = 1
             headlb = 'L  e  v  e  l    '+str(level)
             levellb.configure(text=headlb)
@@ -171,7 +170,7 @@ def levelup():
     levellb.configure(text=headlb)
 
 
-btn = tk.Button(root,text="START",font="arial 40",command=gamestart_animate).pack(side='bottom')
+btn = tk.Button(root,text="START",font="arial 40 bold",command=gamestart_animate).pack(side='bottom')
 
 
 #root.bind("<Key>",key)
